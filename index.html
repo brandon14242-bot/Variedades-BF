@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VARIEDADES BF | Tienda Virtual</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #F3F6FA;
+  color: #252525;
+}
+
+/* ENCABEZADO */
+header {
+  background: linear-gradient(135deg, #123B66, #1765A5);
+  color: white;
+  text-align: center;
+  padding: 40px 15px;
+}
+
+header h1 {
+  font-size: 38px;
+  letter-spacing: 2px;
+}
+
+header h1 span {
+  color: #FF8A00;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* BANNER */
+.banner {
+  background: #FF8A00;
+  color: white;
+  text-align: center;
+  padding: 13px;
+  font-weight: bold;
+}
+
+/* BUSCADOR */
+.search {
+  text-align: center;
+  padding: 25px 15px;
+}
+
+.search input {
+  width: 100%;
+  max-width: 550px;
+  padding: 15px;
+  border: 2px solid #123B66;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* CATEGORÍAS */
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 15px 25px;
+}
+
+.categories button {
+  background: #123B66;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.categories button:hover,
+.categories button.active {
+  background: #FF8A00;
+}
+
+/* TÍTULOS */
+.section-title {
+  text-align: center;
+  color: #123B66;
+  font-size: 27px;
+  margin: 15px 0 5px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* PRODUCTOS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  padding: 20px;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px #00000012;
+  text-align: center;
+  padding-bottom: 20px;
+  transition: transform .2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  background: #e9eef5;
+}
+
+.card h3 {
+  margin: 15px 8px 8px;
+  color: #123B66;
+  font-size: 19px;
+}
+
+.category-label {
+  color: #777;
+  font-size: 13px;
+}
+
+.price {
+  font-size: 23px;
+  color: #F07800;
+  font-weight: bold;
+  margin: 12px;
+}
+
+.buy-button {
+  background: #123B66;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buy-button:hover {
+  background: #FF8A00;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  grid-column: 1/-1;
+}
+
+/* CONTACTO */
+.contact {
+  background: #E8EFF7;
+  text-align: center;
+  padding: 35px 15px;
+  margin-top: 30px;
+}
+
+.contact h2 {
+  color: #123B66;
+  margin-bottom: 12px;
+}
+
+.contact p {
+  margin-bottom: 18px;
+}
+
+.contact a {
+  display: inline-block;
+  background: #FF8A00;
+  color: white;
+  text-decoration: none;
+  padding: 14px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+/* PIE DE PÁGINA */
+footer {
+  background: #123B66;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+
+footer span {
+  color: #FF8A00;
+}
+
+/* CELULARES */
+@media(max-width: 500px) {
+  header h1 {
+    font-size: 29px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .card img {
+    height: 145px;
+  }
+
+  .card h3 {
+    font-size: 15px;
+  }
+
+  .buy-button {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ENCABEZADO -->
+<header>
+  <h1>VARIEDADES <span>BF</span></h1>
+  <p>Todo lo que buscas, en un solo lugar</p>
+</header>
+
+<div class="banner">
+  ¡Descubre nuestros productos y compra fácilmente!
+</div>
+
+<!-- BUSCADOR -->
+<div class="search">
+  <input
+    type="text"
+    id="search"
+    placeholder="🔍 ¿Qué producto estás buscando?"
+    oninput="renderProducts()">
+</div>
+
+<!-- CATEGORÍAS -->
+<div class="categories">
+  <button class="active" onclick="setCategory('Todos',this)">Todos</button>
+  <button onclick="setCategory('Accesorios',this)">Accesorios</button>
+  <button onclick="setCategory('Papelería',this)">Papelería</button>
+  <button onclick="setCategory('Hogar',this)">Hogar</button>
+  <button onclick="setCategory('Tecnología',this)">Tecnología</button>
+  <button onclick="setCategory('Otros',this)">Otros</button>
+</div>
+
+<!-- CATÁLOGO -->
+<h2 class="section-title">Nuestros productos</h2>
+<p class="subtitle">Encuentra lo que necesitas</p>
+
+<div class="products" id="products"></div>
+
+<!-- CONTACTO -->
+<section class="contact">
+  <h2>¿Necesitas ayuda?</h2>
+  <p>Contáctanos y realiza tu pedido por WhatsApp.</p>
+  <a id="contact" href="#" target="_blank">
+    Contactar por WhatsApp
+  </a>
+</section>
+
+<!-- PIE DE PÁGINA -->
+<footer>
+  <h3>VARIEDADES <span>BF</span></h3>
+  <p>Gracias por confiar en nosotros ❤️</p>
+  <p>© 2026 Variedades BF</p>
+</footer>
+
+<script>
+
+// CAMBIAR POR TU NÚMERO REAL DE WHATSAPP
+const whatsapp = "573000000000";
+
+// PRODUCTOS DE EJEMPLO
+const products = [
+  {
+    name: "Llavero personalizado",
+    category: "Accesorios",
+    price: 5000,
+    image: "https://placehold.co/600x400/123B66/FFFFFF?text=Llaveros"
+  },
+  {
+    name: "Portacarnet",
+    category: "Accesorios",
+    price: 8000,
+    image: "https://placehold.co/600x400/FF8A00/FFFFFF?text=Portacarnets"
+  },
+  {
+    name: "Lapiceros",
+    category: "Papelería",
+    price: 3000,
+    image: "https://placehold.co/600x400/123B66/FFFFFF?text=Lapiceros"
+  },
+  {
+    name: "Artículos para el hogar",
+    category: "Hogar",
+    price: 10000,
+    image: "https://placehold.co/600x400/FF8A00/FFFFFF?text=Hogar"
+  },
+  {
+    name: "Accesorios tecnológicos",
+    category: "Tecnología",
+    price: 15000,
+    image: "https://placehold.co/600x400/123B66/FFFFFF?text=Tecnologia"
+  },
+  {
+    name: "Producto especial",
+    category: "Otros",
+    price: 12000,
+    image: "https://placehold.co/600x400/FF8A00/FFFFFF?text=Variedades"
+  }
+];
+
+let selectedCategory = "Todos";
+
+// CAMBIAR CATEGORÍA
+function setCategory(category, button) {
+  selectedCategory = category;
+
+  document.querySelectorAll(".categories button")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  renderProducts();
+}
+
+// MOSTRAR PRODUCTOS
+function renderProducts() {
+  const search = document.getElementById("search")
+    .value.toLowerCase();
+
+  const container = document.getElementById("products");
+
+  container.innerHTML = "";
+
+  const filtered = products.filter(p =>
+    (selectedCategory === "Todos" ||
+    p.category === selectedCategory) &&
+    p.name.toLowerCase().includes(search)
+  );
+
+  if (filtered.length === 0) {
+    container.innerHTML =
+      '<p class="empty">No encontramos productos.</p>';
+    return;
+  }
+
+  filtered.forEach(p => {
+
+    const message = encodeURIComponent(
+      "Hola, quiero comprar " + p.name +
+      " de Variedades BF. Precio: $" +
+      p.price.toLocaleString("es-CO")
+    );
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p class="category-label">${p.category}</p>
+        <p class="price">$${p.price.toLocaleString("es-CO")} COP</p>
+        <button class="buy-button"
+          onclick="window.open('https://wa.me/${whatsapp}?text=${message}','_blank')">
+          Comprar por WhatsApp
+        </button>
+      </div>
+    `;
+  });
+}
+
+// ENLACE DE CONTACTO
+document.getElementById("contact").href =
+  "https://wa.me/" + whatsapp;
+
+// INICIAR CATÁLOGO
+renderProducts();
+
+</script>
+
+</body>
+</html>
